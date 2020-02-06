@@ -1,0 +1,3 @@
+[submodule "dot-api"]
+	path = dot-api
+	url = git@github.com:polkadot-js/api.git
