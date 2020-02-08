@@ -1,5 +1,5 @@
 {
-  "name": "dotjs_api_conv",
+  "name": "polkadot-json-definitions",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@polkadot/api": "^1.1.1",
-    "@polkadot/types": "^1.1.1"
+    "@polkadot/types": "^1.1.1",
+    "typescript": "^3.7.5"
   }
 }
