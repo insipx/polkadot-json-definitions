@@ -11,8 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@polkadot/api": "^1.1.1",
+    "@polkadot/api": "^1.8.1",
     "@polkadot/types": "^1.1.1",
-    "typescript": "^3.7.5"
+    "typescript": "^3.8.3"
   }
 }
