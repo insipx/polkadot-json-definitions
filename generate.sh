@@ -5,4 +5,5 @@ cd dot-api/
 yarn &&
 yarn run build &&
 yarn run build:interfaces &&
+cd ../
 node index.js
