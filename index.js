@@ -1,18 +1,41 @@
 exports.__esModule = true;
 
-var Definitions = require("./dot-api/packages/types/build/interfaces/definitions");
-var kusama_spec = require("./dot-api/packages/types-known/build/spec/kusama");
+var definitions = require("./dot-api/packages/types/build/interfaces/definitions");
+var spec = require("./dot-api/packages/types-known/build/spec/index");
 var modules = require("./dot-api/packages/types-known/build/modules");
 var meta = require("./dot-api/packages/types-known/build/metadata");
 var fs = require('fs');
 
-var defs = JSON.stringify(Definitions, null, 2);
+
+let new_defs = mutateDefinitions(definitions);
+
+var defs = JSON.stringify(new_defs, null, 2);
 var overrides = JSON.stringify(
 {
-	TYPES_MODULES: modules,
-	TYPES_META: meta,
-	TYPES_SPEC: kusama_spec
+	TYPES_MODULES: modules.default,
+	TYPES_META: meta.default,
+	TYPES_SPEC: spec.default
 }, null, 2);
 
 fs.writeFileSync("definitions.json", defs);
 fs.writeFileSync("overrides.json", overrides);
+
+// remove "rpc" definitions
+// sorts the object
+// adds definition for `Bytes`
+function mutateDefinitions(obj) {
+  var key, keys = Object.keys(obj);
+  var n = keys.length;
+  var newobj={}
+  while (n--) {
+    key = keys[n];
+    delete obj[key].rpc;
+    newobj[key.toLowerCase()] = obj[key];
+  }
+  sorted = Object.keys(newobj).sort().reduce((acc, key) => ({
+    ...acc, [key]: newobj[key]
+  }), {});
+  
+  sorted['runtime']['types']['Bytes'] = "Vec<u8>";
+  return sorted;
+}
