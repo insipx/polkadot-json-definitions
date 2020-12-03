@@ -3,7 +3,6 @@ exports.__esModule = true;
 var definitions = require("./dot-api/packages/types/build/interfaces/definitions");
 var spec = require("./dot-api/packages/types-known/build/spec/index");
 var modules = require("./dot-api/packages/types-known/build/modules");
-var meta = require("./dot-api/packages/types-known/build/metadata");
 var fs = require('fs');
 
 
@@ -13,7 +12,6 @@ var defs = JSON.stringify(new_defs, null, 2);
 var overrides = JSON.stringify(
 {
 	TYPES_MODULES: modules.default,
-	TYPES_META: meta.default,
 	TYPES_SPEC: spec.default
 }, null, 2);
 
