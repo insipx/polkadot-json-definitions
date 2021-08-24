@@ -1,10 +1,7 @@
-exports.__esModule = true;
-
-var definitions = require("./dot-api/packages/types/build/interfaces/definitions");
-var spec = require("./dot-api/packages/types-known/build/spec/index");
-var modules = require("./dot-api/packages/types-known/build/modules");
-var fs = require('fs');
-
+import * as definitions from './dot-api/packages/types/build/interfaces/definitions.js';
+import * as spec from "./dot-api/packages/types-known/build/spec/index.js";
+import * as modules from "./dot-api/packages/types-known/build/modules.js";
+import { writeFileSync } from 'fs';
 
 let new_defs = mutateDefinitions(definitions);
 
@@ -15,8 +12,8 @@ var overrides = JSON.stringify(
 	TYPES_SPEC: spec.default
 }, null, 2);
 
-fs.writeFileSync("definitions.json", defs);
-fs.writeFileSync("overrides.json", overrides);
+writeFileSync("definitions.json", defs);
+writeFileSync("overrides.json", overrides);
 
 // remove "rpc" definitions
 // sorts the object
@@ -30,7 +27,7 @@ function mutateDefinitions(obj) {
     delete obj[key].rpc;
     newobj[key.toLowerCase()] = obj[key];
   }
-  sorted = Object.keys(newobj).sort().reduce((acc, key) => ({
+  var sorted = Object.keys(newobj).sort().reduce((acc, key) => ({
     ...acc, [key]: newobj[key]
   }), {});
   
